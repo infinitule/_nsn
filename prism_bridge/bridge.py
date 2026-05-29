@@ -58,8 +58,7 @@ class PRISMBridge:
         Uses SynapticEmbedder to compute MI proxy (optical clarity) and
         derives a natural-language grounding paragraph injected into Level 0.
         """
-        enc = self.embedder.encode(attention_vector.reshape(1, -1))
-        mi = self.embedder.mutual_information_proxy(enc)
+        mi = self.attention_mi(attention_vector)
         norm = float(np.linalg.norm(attention_vector))
         coherence_score = float(1.0 - np.std(attention_vector))
 
@@ -75,6 +74,11 @@ class PRISMBridge:
             f"{'maximise coverage this turn' if mi > 2.5 else 'exploit your current focus, then widen'}."
         )
 
+    def attention_mi(self, vec: np.ndarray) -> float:
+        """Return the MI entropy proxy for the given attention vector."""
+        enc = self.embedder.encode(vec.reshape(1, -1))
+        return float(self.embedder.mutual_information_proxy(enc))
+
     def confidence_from_prism(self, attention_vector: np.ndarray) -> float:
         """
         Derive a confidence floor from the MI entropy of attention_vector.
@@ -83,8 +87,7 @@ class PRISMBridge:
         Low MI (focused distribution) → higher prior confidence (convergent).
         Maps MI ∈ [0, ~4.2] → confidence_floor ∈ [0.3, 0.75].
         """
-        enc = self.embedder.encode(attention_vector.reshape(1, -1))
-        mi = self.embedder.mutual_information_proxy(enc)
+        mi = self.attention_mi(attention_vector)
         # Sigmoid-style normalisation: MI≈0 → 0.75, MI≈4 → 0.30
         return float(np.clip(0.75 - 0.11 * mi, 0.30, 0.75))
 

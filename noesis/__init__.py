@@ -29,6 +29,16 @@ from .agent import NOESISAgent
 from .pipeline import PipelineInjector
 from .self_model import SelfModel
 from .loop import NoesisResult
+from .auto_mode import AutoMode, CycleRecord
+from .evaluator import EvalScore, score as eval_score, _COHERENCE_FLOOR
+from .scheduler import ScheduleConfig, schedule_config
+from .persistence import SessionPersistence, save as persistence_save, load as persistence_load, exists as persistence_exists
 
-__all__ = ["NOESISAgent", "PipelineInjector", "SelfModel", "NoesisResult"]
-__version__ = "0.1.0"
+__all__ = [
+    "NOESISAgent", "PipelineInjector", "SelfModel", "NoesisResult",
+    "AutoMode", "CycleRecord",
+    "EvalScore", "eval_score", "_COHERENCE_FLOOR",
+    "ScheduleConfig", "schedule_config",
+    "SessionPersistence", "persistence_save", "persistence_load", "persistence_exists",
+]
+__version__ = "0.2.0"
