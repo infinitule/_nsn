@@ -19,8 +19,10 @@ from .self_model import SelfModel
 from prism_bridge import PRISMBridge
 
 
+# Matches a complete <noesis_state>...</noesis_state> block, OR an unclosed
+# <noesis_state>... that runs to end-of-text (response truncated at max_tokens).
 _STATE_RE = re.compile(
-    r"<noesis_state>(.*?)</noesis_state>",
+    r"<noesis_state>(.*?)(?:</noesis_state>|\Z)",
     re.DOTALL | re.IGNORECASE,
 )
 _FIELD_RE = re.compile(r"^(\w+)\s*:\s*(.+)$", re.MULTILINE)
