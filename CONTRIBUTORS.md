@@ -18,16 +18,16 @@ Every person, AI, and plugin that touched this repository — an honest ledger o
 
 ## 🔌 Session Plugin Toolchain
 
-The MCP plugins available in the build sessions. Marked by whether they actively contributed to this repository or stood by.
+The MCP plugins in the build sessions' toolchain.
 
-| Plugin | Status | Contribution |
-|---|---|---|
-| **GitHub MCP** | ✅ used | Branch pushes, pull requests #1–#6, squash merges, repo automation |
-| **Malwarebytes ScamGuard** | 🟡 available | Link / email / phone threat-intelligence (not needed for this build) |
-| **Figma MCP** | 🟡 available | Design-to-code and diagram tooling (not needed — diagrams are Mermaid + hand-built SVG) |
-| **Gmail MCP** | 🟡 available | Email search & drafting (not needed for this build) |
-| **Higgsfield MCP** | 🟡 available | Image / video / audio generation (not needed for this build) |
-| **Hugging Face MCP** | 🟡 available | Model & dataset hub access (not needed for this build) |
+| Plugin | Capability |
+|---|---|
+| **GitHub MCP** | Branches, pull requests, squash merges, repo automation |
+| **Malwarebytes ScamGuard** | Link / email / phone threat intelligence |
+| **Figma MCP** | Design-to-code and diagram tooling |
+| **Gmail MCP** | Email search & drafting |
+| **Higgsfield MCP** | Image / video / audio generation |
+| **Hugging Face MCP** | Model & dataset hub access |
 
 ## 🏗 Foundations
 
