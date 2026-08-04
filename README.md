@@ -27,7 +27,7 @@ It is grounded in [PRISM](https://github.com/infinitule/PRISM)'s photonic recurs
 
 - [Why NOESIS](#why-noesis)
 - [The Core Invention](#the-core-invention)
-- [Architecture](#architecture)
+- [Architecture](#architecture) · [full function-level blueprint →](docs/BLUEPRINT.md)
 - [Quickstart](#quickstart)
   - [Install](#install)
   - [60-second agent](#60-second-agent)
@@ -145,6 +145,8 @@ User / Application
 │    └── auto-generate next task from wisdom ◄──┘   │
 └───────────────────────────────────────────────────┘
 ```
+
+> **Deep dive:** [`docs/BLUEPRINT.md`](docs/BLUEPRINT.md) maps **every node and function** — the complete call graph, a turn-by-turn sequence diagram, the full AutoMode branch flowchart, class relationships, and the attention vector's data-flow lifecycle. All in Mermaid, rendered natively by GitHub.
 
 | Component | File | Responsibility |
 |---|---|---|
