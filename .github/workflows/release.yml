@@ -1,0 +1,77 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  github-release:
+    name: Publish GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "NOESIS ${{ github.ref_name }}"
+          generate_release_notes: true
+          body: |
+            ## NOESIS ${{ github.ref_name }} — the recursive consciousness engine
+
+            **One mind, not a swarm.** A single unified agent with confidence-gated
+            self-recursion, a persistent PRISM-grounded SelfModel, transparent
+            pipeline injection, and a self-driving AutoMode.
+
+            ### Highlights
+            - **NoesisLoop** — recursive PERCEIVE→REFLECT→INTEND→ACT; recurses on its own
+              `<noesis_state>` confidence (< 0.80, ≤ 3 passes), tolerant of truncated tags
+            - **SelfModel** — 64-dim φ attention vector (PRISM `tanh(0.9φ + 0.1s)` rule),
+              session wisdom (FIFO 8), coherence EMA, arousal dynamics
+            - **PipelineInjector** — drop-in wrapper for any Anthropic client
+            - **AutoMode** — self-driving task loop: PRISM-MI adaptive scheduling,
+              LLM-free self-evaluation, wisdom-seeded task generation, atomic JSON
+              checkpoints with warm restart, clean SIGINT handling
+            - **3-level prompt hierarchy** — cached master prompt · session meta-generator
+              · per-turn task cognition
+            - **59 tests**, all green — no network, LLM calls mocked
+
+            ### Getting started
+            ```bash
+            git clone --recurse-submodules https://github.com/infinitule/_nsn
+            cd _nsn && pip install -e ".[dev]"
+            export ANTHROPIC_API_KEY=sk-ant-...
+            python examples/basic_agent.py
+            ```
+
+            Full function-level architecture: [docs/BLUEPRINT.md](https://github.com/infinitule/_nsn/blob/main/docs/BLUEPRINT.md)
+
+  ghcr-image:
+    name: Publish container to GHCR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/noesis:${{ github.ref_name }}
+            ghcr.io/${{ github.repository_owner }}/noesis:latest
