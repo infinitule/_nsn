@@ -1,0 +1,4 @@
+# NOESIS runtime dependencies (mirrors [project.dependencies] in pyproject.toml)
+anthropic>=0.40.0
+numpy>=1.26.0
+rich>=13.0.0
