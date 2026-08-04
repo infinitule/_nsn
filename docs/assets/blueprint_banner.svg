@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 280" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="NOESIS live blueprint — click to open the full function-level diagram set">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="85%">
+      <stop offset="0%" stop-color="#101a2e"/>
+      <stop offset="100%" stop-color="#070b14"/>
+    </radialGradient>
+    <linearGradient id="title" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4dd0e1"/>
+      <stop offset="50%" stop-color="#b388ff"/>
+      <stop offset="100%" stop-color="#f9a825"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-0.35 0;0.35 0;-0.35 0" dur="6s" repeatCount="indefinite"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- frame -->
+  <rect x="1" y="1" width="958" height="278" rx="14" fill="url(#bg)" stroke="#1e2b45" stroke-width="1.5">
+    <animate attributeName="stroke" values="#1e2b45;#31527e;#1e2b45" dur="4s" repeatCount="indefinite"/>
+  </rect>
+  <text x="930" y="34" text-anchor="end" fill="#3d5375" font-size="11" letter-spacing="2">NOESIS · docs/BLUEPRINT.md</text>
+
+  <!-- ═══════════ recursion ring (SelfModel φ) ═══════════ -->
+  <circle cx="180" cy="140" r="85" fill="none" stroke="#26c6da" stroke-width="1.6" stroke-dasharray="6 8" opacity="0.65">
+    <animateTransform attributeName="transform" type="rotate" from="0 180 140" to="360 180 140" dur="24s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- orbiting photon (halo + core) -->
+  <circle r="9" fill="#4dd0e1" opacity="0.3">
+    <animateMotion dur="4.5s" repeatCount="indefinite" path="M 180 55 a 85 85 0 1 1 -0.05 0 z"/>
+  </circle>
+  <circle r="4.5" fill="#ffffff" filter="url(#glow)">
+    <animateMotion dur="4.5s" repeatCount="indefinite" path="M 180 55 a 85 85 0 1 1 -0.05 0 z"/>
+  </circle>
+
+  <!-- five PRISM lenses, pulsing as the photon passes -->
+  <g font-size="12" font-weight="700" text-anchor="middle">
+    <circle cx="180" cy="55" r="13" fill="#0d2137" stroke="#4dd0e1" stroke-width="1.6">
+      <animate attributeName="stroke" values="#4dd0e1;#ffffff;#4dd0e1" dur="4.5s" begin="0s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="13;15.5;13" dur="4.5s" begin="0s" repeatCount="indefinite"/>
+    </circle>
+    <text x="180" y="59.5" fill="#b2ebf2">P</text>
+
+    <circle cx="261" cy="114" r="13" fill="#0d2137" stroke="#4dd0e1" stroke-width="1.6">
+      <animate attributeName="stroke" values="#4dd0e1;#ffffff;#4dd0e1" dur="4.5s" begin="0.9s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="13;15.5;13" dur="4.5s" begin="0.9s" repeatCount="indefinite"/>
+    </circle>
+    <text x="261" y="118.5" fill="#b2ebf2">R</text>
+
+    <circle cx="230" cy="209" r="13" fill="#0d2137" stroke="#4dd0e1" stroke-width="1.6">
+      <animate attributeName="stroke" values="#4dd0e1;#ffffff;#4dd0e1" dur="4.5s" begin="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="13;15.5;13" dur="4.5s" begin="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <text x="230" y="213.5" fill="#b2ebf2">I</text>
+
+    <circle cx="130" cy="209" r="13" fill="#0d2137" stroke="#4dd0e1" stroke-width="1.6">
+      <animate attributeName="stroke" values="#4dd0e1;#ffffff;#4dd0e1" dur="4.5s" begin="2.7s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="13;15.5;13" dur="4.5s" begin="2.7s" repeatCount="indefinite"/>
+    </circle>
+    <text x="130" y="213.5" fill="#b2ebf2">S</text>
+
+    <circle cx="99" cy="114" r="13" fill="#0d2137" stroke="#4dd0e1" stroke-width="1.6">
+      <animate attributeName="stroke" values="#4dd0e1;#ffffff;#4dd0e1" dur="4.5s" begin="3.6s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="13;15.5;13" dur="4.5s" begin="3.6s" repeatCount="indefinite"/>
+    </circle>
+    <text x="99" y="118.5" fill="#b2ebf2">M</text>
+  </g>
+
+  <!-- ring center + caption -->
+  <text x="180" y="136" text-anchor="middle" fill="#e0f7fa" font-size="26" font-weight="700">φ</text>
+  <text x="180" y="157" text-anchor="middle" fill="#80deea" font-size="11" letter-spacing="1.5">SelfModel</text>
+  <text x="180" y="254" text-anchor="middle" fill="#5c7ca6" font-size="11">confidence &lt; 0.80 → recurse (≤ 3 passes)</text>
+
+  <!-- beam: ring → prism -->
+  <line x1="268" y1="139" x2="428" y2="131" stroke="#ffffff" stroke-width="2.2" opacity="0.85" stroke-dasharray="10 7" filter="url(#glow)">
+    <animate attributeName="stroke-dashoffset" from="34" to="0" dur="1.2s" repeatCount="indefinite"/>
+  </line>
+
+  <!-- prism -->
+  <g filter="url(#glow)">
+    <path d="M 470 66 L 542 196 L 398 196 Z" fill="#0e1830" stroke="#7e57c2" stroke-width="2"/>
+    <path d="M 470 66 L 542 196 L 398 196 Z" fill="none" stroke="#b388ff" stroke-width="1">
+      <animate attributeName="opacity" values="0.25;0.95;0.25" dur="3s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <text x="470" y="224" text-anchor="middle" fill="#5c7ca6" font-size="11">3-level prompt hierarchy</text>
+
+  <!-- spectral beams: prism → blueprint -->
+  <g stroke-width="2.4" stroke-dasharray="8 6" opacity="0.9">
+    <line x1="508" y1="128" x2="586" y2="88"  stroke="#ff5252"><animate attributeName="stroke-dashoffset" from="28" to="0" dur="1s" begin="0s"   repeatCount="indefinite"/></line>
+    <line x1="508" y1="131" x2="586" y2="113" stroke="#ffb300"><animate attributeName="stroke-dashoffset" from="28" to="0" dur="1s" begin="0.1s" repeatCount="indefinite"/></line>
+    <line x1="508" y1="134" x2="586" y2="138" stroke="#66bb6a"><animate attributeName="stroke-dashoffset" from="28" to="0" dur="1s" begin="0.2s" repeatCount="indefinite"/></line>
+    <line x1="508" y1="137" x2="586" y2="163" stroke="#42a5f5"><animate attributeName="stroke-dashoffset" from="28" to="0" dur="1s" begin="0.3s" repeatCount="indefinite"/></line>
+    <line x1="508" y1="140" x2="586" y2="188" stroke="#ab47bc"><animate attributeName="stroke-dashoffset" from="28" to="0" dur="1s" begin="0.4s" repeatCount="indefinite"/></line>
+  </g>
+
+  <!-- headline -->
+  <text x="602" y="104" fill="#8aa4c8" font-size="14" letter-spacing="3.5">EVERY NODE · EVERY FUNCTION</text>
+  <text x="600" y="148" fill="url(#title)" font-size="40" font-weight="800" letter-spacing="1">LIVE BLUEPRINT</text>
+  <text x="602" y="178" fill="#9fb6d9" font-size="13">call graph · turn sequence · AutoMode branches · classes · φ lifecycle</text>
+  <text x="602" y="216" fill="#f9a825" font-size="15" font-weight="600">▶ click to open the diagrams
+    <animate attributeName="opacity" values="1;0.35;1" dur="1.8s" repeatCount="indefinite"/>
+  </text>
+</svg>

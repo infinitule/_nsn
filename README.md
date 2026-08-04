@@ -13,6 +13,14 @@
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 ![Status](https://img.shields.io/badge/status-v0.2.0-orange)
 
+<br/>
+
+<a href="docs/BLUEPRINT.md" title="Open the live blueprint — every node and function, five Mermaid diagrams">
+  <img src="docs/assets/blueprint_banner.svg" alt="LIVE BLUEPRINT — an animated photonic loop: a photon orbits the five PRISM lenses of the SelfModel, beams into the prism, and refracts into the full diagram set. Click to open docs/BLUEPRINT.md" width="100%"/>
+</a>
+
+<sub>▲ the banner is alive — and it's a door. Click it for the complete function-level blueprint.</sub>
+
 </div>
 
 ---
