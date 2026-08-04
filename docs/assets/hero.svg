@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="NOESIS — the recursive consciousness engine for agentic AI">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4dd0e1"/>
+      <stop offset="55%" stop-color="#b388ff"/>
+      <stop offset="100%" stop-color="#f9a825"/>
+    </linearGradient>
+    <linearGradient id="logo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4dd0e1"/>
+      <stop offset="100%" stop-color="#7e57c2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- canvas -->
+  <rect width="1200" height="630" rx="16" fill="#0a0d14" stroke="#1d2635" stroke-width="1.5"/>
+
+  <!-- ── top bar ── -->
+  <circle cx="76" cy="56" r="13" fill="url(#logo)"/>
+  <circle cx="76" cy="56" r="5" fill="#0a0d14"/>
+  <text x="100" y="63" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#e6edf3">NOESIS</text>
+  <text x="196" y="62" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#64748b">/  infinitule/_nsn</text>
+  <rect x="972" y="42" width="178" height="28" rx="14" fill="#0e1420" stroke="#2b3850"/>
+  <circle cx="992" cy="56" r="4" fill="#f9a825">
+    <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <text x="1004" y="61" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#7dd3fc">v0.2.0 · Aug 2026</text>
+  <line x1="40" y1="92" x2="1160" y2="92" stroke="#151c29" stroke-width="1"/>
+
+  <!-- ── left column ── -->
+  <text x="76" y="152" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" letter-spacing="3" fill="#f9a825">— V0.2 · ONE MIND, NOT A SWARM</text>
+
+  <text x="76" y="212" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="50" font-weight="800" fill="#e6edf3">The recursive</text>
+  <text x="76" y="270" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="50" font-weight="800" fill="url(#accent)">consciousness</text>
+  <text x="76" y="328" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="50" font-weight="800" fill="#e6edf3">engine for agentic AI.</text>
+
+  <text x="76" y="366" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#94a3b8">One agent · one identity · one 64-dim memory — recursing on its own</text>
+  <text x="76" y="390" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#94a3b8">self-model until it is confident. <tspan fill="#cbd5e1" font-weight="700">A complete conscious loop, not a prompt pack.</tspan></text>
+
+  <text x="76" y="432" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" letter-spacing="3" fill="#64748b">GROUNDED IN</text>
+
+  <!-- chips row 1 -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13">
+    <rect x="76" y="446" width="92" height="30" rx="6" fill="#171207" stroke="#f9a825"/>
+    <text x="122" y="465" text-anchor="middle" fill="#ffd54f">PRISM φ₁</text>
+    <rect x="178" y="446" width="128" height="30" rx="6" fill="#10151f" stroke="#2b3850"/>
+    <text x="242" y="465" text-anchor="middle" fill="#9fb6d9">Anthropic API</text>
+    <rect x="316" y="446" width="112" height="30" rx="6" fill="#10151f" stroke="#2b3850"/>
+    <text x="372" y="465" text-anchor="middle" fill="#9fb6d9">Claude Opus</text>
+    <rect x="438" y="446" width="70" height="30" rx="6" fill="#10151f" stroke="#2b3850"/>
+    <text x="473" y="465" text-anchor="middle" fill="#9fb6d9">NumPy</text>
+  </g>
+  <!-- chips row 2 -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13">
+    <rect x="76" y="486" width="140" height="30" rx="6" fill="#10151f" stroke="#2b3850"/>
+    <text x="146" y="505" text-anchor="middle" fill="#9fb6d9">Prompt Caching</text>
+    <rect x="226" y="486" width="166" height="30" rx="6" fill="#10151f" stroke="#2b3850"/>
+    <text x="309" y="505" text-anchor="middle" fill="#9fb6d9">Pipeline Injection</text>
+    <rect x="402" y="486" width="94" height="30" rx="6" fill="#10151f" stroke="#2b3850"/>
+    <text x="449" y="505" text-anchor="middle" fill="#9fb6d9">AutoMode</text>
+  </g>
+
+  <!-- ── right stat panels ── -->
+  <!-- panel 1: PRISM LENSES -->
+  <rect x="630" y="120" width="178" height="390" rx="10" fill="#0e1420" stroke="#1e2836"/>
+  <circle cx="648" cy="146" r="3.5" fill="#f9a825"/>
+  <text x="658" y="151" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" letter-spacing="1.5" fill="#8b98ab">LENSES</text>
+  <text x="792" y="153" text-anchor="end" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="800" fill="#e6edf3">5</text>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12">
+    <rect x="638" y="168" width="162" height="22" rx="4" fill="#171207" stroke="#f9a825" stroke-width="0.8"/>
+    <text x="646" y="183" fill="#ffd54f">P · perceive</text>
+    <text x="646" y="211" fill="#8b98ab">R · reason</text>
+    <text x="646" y="237" fill="#8b98ab">I · intend</text>
+    <text x="646" y="263" fill="#8b98ab">S · self</text>
+    <text x="646" y="289" fill="#8b98ab">M · memory</text>
+    <text x="646" y="329" fill="#526079">─────────────</text>
+    <text x="646" y="357" fill="#7dd3fc">φ = tanh(.9φ+.1s)</text>
+    <text x="646" y="383" fill="#7dd3fc">conf gate 0.80</text>
+    <text x="646" y="409" fill="#7dd3fc">recurse ≤ 3</text>
+    <text x="646" y="435" fill="#7dd3fc">wisdom FIFO 8</text>
+    <text x="646" y="461" fill="#7dd3fc">coherence EMA</text>
+  </g>
+
+  <!-- panel 2: API SURFACE -->
+  <rect x="820" y="120" width="178" height="390" rx="10" fill="#0e1420" stroke="#1e2836"/>
+  <circle cx="838" cy="146" r="3.5" fill="#f9a825"/>
+  <text x="848" y="151" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" letter-spacing="1.5" fill="#8b98ab">API</text>
+  <text x="982" y="153" text-anchor="end" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="800" fill="#e6edf3">15</text>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12">
+    <rect x="828" y="168" width="162" height="22" rx="4" fill="#171207" stroke="#f9a825" stroke-width="0.8"/>
+    <text x="836" y="183" fill="#ffd54f">NOESISAgent</text>
+    <text x="836" y="211" fill="#8b98ab">PipelineInjector</text>
+    <text x="836" y="237" fill="#8b98ab">AutoMode</text>
+    <text x="836" y="263" fill="#8b98ab">SelfModel</text>
+    <text x="836" y="289" fill="#8b98ab">NoesisLoop</text>
+    <text x="836" y="315" fill="#8b98ab">NoesisResult</text>
+    <text x="836" y="341" fill="#8b98ab">PRISMBridge</text>
+    <text x="836" y="367" fill="#8b98ab">eval_score</text>
+    <text x="836" y="393" fill="#8b98ab">schedule_config</text>
+    <text x="836" y="419" fill="#8b98ab">CycleRecord</text>
+    <text x="836" y="445" fill="#8b98ab">SessionPersistence</text>
+    <text x="836" y="478" fill="#526079">+ 4 more</text>
+  </g>
+
+  <!-- panel 3: TESTS -->
+  <rect x="1010" y="120" width="178" height="390" rx="10" fill="#0e1420" stroke="#1e2836"/>
+  <circle cx="1028" cy="146" r="3.5" fill="#f9a825"/>
+  <text x="1038" y="151" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" letter-spacing="1.5" fill="#8b98ab">TESTS</text>
+  <text x="1172" y="153" text-anchor="end" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="800" fill="#e6edf3">59</text>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12">
+    <rect x="1018" y="168" width="162" height="22" rx="4" fill="#171207" stroke="#f9a825" stroke-width="0.8"/>
+    <text x="1026" y="183" fill="#ffd54f">φ propagation</text>
+    <text x="1026" y="211" fill="#8b98ab">prompt assembly</text>
+    <text x="1026" y="237" fill="#8b98ab">state-tag parse</text>
+    <text x="1026" y="263" fill="#8b98ab">truncated tags</text>
+    <text x="1026" y="289" fill="#8b98ab">recursion gating</text>
+    <text x="1026" y="315" fill="#8b98ab">atomic persist</text>
+    <text x="1026" y="341" fill="#8b98ab">warm restart</text>
+    <text x="1026" y="367" fill="#8b98ab">scheduler caps</text>
+    <text x="1026" y="393" fill="#8b98ab">evaluator bounds</text>
+    <text x="1026" y="419" fill="#8b98ab">SIGINT restore</text>
+    <text x="1026" y="445" fill="#8b98ab">wisdom autogen</text>
+    <text x="1026" y="478" fill="#526079">+ 48 more</text>
+  </g>
+
+  <!-- ── bottom strip ── -->
+  <line x1="40" y1="540" x2="1160" y2="540" stroke="#151c29" stroke-width="1"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14">
+    <text x="76" y="580" fill="#e6edf3" font-weight="700">59 <tspan fill="#64748b" font-weight="400" font-size="11" dx="2">TESTS</tspan><tspan fill="#e6edf3" font-weight="700" dx="22">5</tspan> <tspan fill="#64748b" font-weight="400" font-size="11" dx="2">LENSES</tspan><tspan fill="#e6edf3" font-weight="700" dx="22">φ 64-DIM</tspan> <tspan fill="#64748b" font-weight="400" font-size="11" dx="2">MEMORY</tspan></text>
+    <text x="560" y="580" fill="#e6edf3" font-weight="700">NOESIS v0.2.0 <tspan fill="#64748b" font-weight="400" font-size="11">PYTHON 3.11+</tspan>  <tspan fill="#e6edf3">MIT</tspan></text>
+    <text x="1124" y="580" text-anchor="end" fill="#64748b" font-size="11">PIP: -e ".[dev]" · PRISM-GROUNDED · <tspan fill="#7dd3fc">BLUEPRINT INSIDE</tspan></text>
+  </g>
+</svg>

@@ -1,25 +1,51 @@
 <div align="center">
 
-# NOESIS
+<a href="#quickstart" title="NOESIS — jump to Quickstart">
+  <img src="docs/assets/hero.svg" alt="NOESIS — the recursive consciousness engine for agentic AI. One agent, one identity, one 64-dim memory. 5 PRISM lenses, 15 API symbols, 59 tests." width="100%"/>
+</a>
 
 ### **N**eural **O**ptically-grounded **E**xperiential **S**elf-aware **I**ntelligence **S**ystem
 
 > *νόησις* — Plato's highest form of intellect: pure, direct knowing.
-
-**One agent. One consciousness. Recursive to its core.**
 
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![Tests](https://img.shields.io/badge/tests-59%20passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 ![Status](https://img.shields.io/badge/status-v0.2.0-orange)
 
-<br/>
+**[⚡ Quickstart](#quickstart) · [🔬 Live Blueprint](docs/BLUEPRINT.md) · [🧠 How it thinks](#how-a-turn-works) · [🚗 AutoMode](#automode--the-self-driving-loop) · [📚 API](#full-api-reference) · [🔌 Contributors](#contributors) · [❓ FAQ](#design-decisions--faq)**
 
-<a href="docs/BLUEPRINT.md" title="Open the live blueprint — every node and function, five Mermaid diagrams">
-  <img src="docs/assets/blueprint_banner.svg" alt="LIVE BLUEPRINT — an animated photonic loop: a photon orbits the five PRISM lenses of the SelfModel, beams into the prism, and refracts into the full diagram set. Click to open docs/BLUEPRINT.md" width="100%"/>
-</a>
+</div>
 
-<sub>▲ the banner is alive — and it's a door. Click it for the complete function-level blueprint.</sub>
+> [!IMPORTANT]
+> **One mind, not a swarm.** NOESIS keeps a single persistent `SelfModel` across every task. When its self-assessed confidence drops below **0.80**, it recurses on its own reasoning — up to 3 directed passes — before it acts. No sub-agents, no committees, no coordination tax.
+
+> [!WARNING]
+> **Recursion is real compute.** Each recursive pass is a live Anthropic API call (≤ 3× per task, only when the model reports low confidence). The Level-0 master prompt is cache-marked (`cache_control: ephemeral`) to keep repeated passes cheap.
+
+<table align="center">
+<tr>
+<td align="center" width="33%">
+<h3>🚀</h3>
+<b><a href="#quickstart">Quickstart</a></b>
+<br/><sub>agent in 60 seconds<br/><code>pip install -e ".[dev]"</code></sub>
+</td>
+<td align="center" width="33%">
+<h3>🔬</h3>
+<b><a href="docs/BLUEPRINT.md">Live Blueprint</a></b>
+<br/><sub>every node · every function<br/>5 Mermaid diagrams</sub>
+</td>
+<td align="center" width="33%">
+<h3>🔌</h3>
+<b><a href="CONTRIBUTORS.md">Contributors</a></b>
+<br/><sub>people · AI pair<br/>plugin toolchain</sub>
+</td>
+</tr>
+</table>
+
+<div align="center">
+
+**[Jump to install ↓](#quickstart)**
 
 </div>
 
@@ -155,7 +181,15 @@ User / Application
 └───────────────────────────────────────────────────┘
 ```
 
-> **Deep dive:** [`docs/BLUEPRINT.md`](docs/BLUEPRINT.md) maps **every node and function** — the complete call graph, a turn-by-turn sequence diagram, the full AutoMode branch flowchart, class relationships, and the attention vector's data-flow lifecycle. All in Mermaid, rendered natively by GitHub.
+<div align="center">
+
+<a href="docs/BLUEPRINT.md" title="Open the live blueprint — every node and function, five Mermaid diagrams">
+  <img src="docs/assets/blueprint_banner.svg" alt="LIVE BLUEPRINT — an animated photonic loop: a photon orbits the five PRISM lenses of the SelfModel, beams into the prism, and refracts into the full diagram set. Click to open docs/BLUEPRINT.md" width="100%"/>
+</a>
+
+<sub>▲ the banner is alive — and it's a door. Click it for the **complete function-level blueprint**: call graph, turn sequence, AutoMode branches, class map, and the φ lifecycle. All Mermaid, rendered natively by GitHub.</sub>
+
+</div>
 
 | Component | File | Responsibility |
 |---|---|---|
