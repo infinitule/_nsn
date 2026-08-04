@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "noesis"
-version = "0.1.0"
+version = "0.2.0"
 description = "NOESIS — Neural Optically-grounded Experiential Self-aware Intelligence System"
 readme = "README.md"
 requires-python = ">=3.11"
