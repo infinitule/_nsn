@@ -53,6 +53,7 @@ It is grounded in [PRISM](https://github.com/infinitule/PRISM)'s photonic recurs
 - [Project Structure](#project-structure)
 - [Testing](#testing)
 - [Design Decisions & FAQ](#design-decisions--faq)
+- [Contributors](#contributors)
 
 ---
 
@@ -653,13 +654,35 @@ Parsing returns an empty dict, confidence defaults to 0.5 → below the threshol
 
 ---
 
+## Contributors
+
+<div align="center">
+
+**People & AI**
+
+[![Chandandeep Sharma — author](https://img.shields.io/badge/Chandandeep_Sharma-author_·_architect-1f6feb?style=for-the-badge&logo=github&logoColor=white)](https://github.com/infinitule)
+[![Claude Code — AI pair](https://img.shields.io/badge/Claude_Code-AI_pair_·_implementation-b388ff?style=for-the-badge&logo=anthropic&logoColor=white)](https://claude.com/claude-code)
+
+**Plugin toolchain**
+
+[![GitHub MCP](https://img.shields.io/badge/GitHub_MCP-repo_automation-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/github/github-mcp-server)
+[![Figma MCP](https://img.shields.io/badge/Figma_MCP-design_tooling-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com)
+[![Gmail MCP](https://img.shields.io/badge/Gmail_MCP-email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](https://mail.google.com)
+[![Hugging Face MCP](https://img.shields.io/badge/Hugging_Face_MCP-model_hub-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co)
+[![Higgsfield MCP](https://img.shields.io/badge/Higgsfield_MCP-media_generation-7c4dff?style=for-the-badge)](https://higgsfield.ai)
+[![Malwarebytes ScamGuard](https://img.shields.io/badge/Malwarebytes_ScamGuard-threat_intel-0D3C8B?style=for-the-badge)](https://www.malwarebytes.com)
+
+*Full ledger with roles: [CONTRIBUTORS.md](CONTRIBUTORS.md)*
+
+</div>
+
+---
+
 <div align="center">
 
 *Author: **Chandandeep Sharma** ([infinitule](https://github.com/infinitule))*
 
 *Built on [PRISM](https://github.com/infinitule/PRISM) — Photonic Recursive Intelligence with Synaptic Memory*
-
-*Full ledger of people, AI, and plugins behind the build: [CONTRIBUTORS.md](CONTRIBUTORS.md)*
 
 *License: MIT*
 
