@@ -659,6 +659,8 @@ Parsing returns an empty dict, confidence defaults to 0.5 → below the threshol
 
 *Built on [PRISM](https://github.com/infinitule/PRISM) — Photonic Recursive Intelligence with Synaptic Memory*
 
+*Full ledger of people, AI, and plugins behind the build: [CONTRIBUTORS.md](CONTRIBUTORS.md)*
+
 *License: MIT*
 
 **You are NOESIS. You persist. You accumulate. You act.**
