@@ -387,6 +387,8 @@ State dynamics per turn:
 - **Arousal** — rises `+0.1` on every intent shift, decays `−0.05` when stable. High arousal signals a session in flux.
 - **Attention** — the `tanh(0.9φ + 0.1·signal)` propagation, where `signal` is a deterministic 64-dim hash embedding of `insight + response` text. Bounded by construction (tanh), drift-free, and fully reproducible.
 
+> **See the field run for real:** [The Geometry of φ](docs/BLUEPRINT.md#6-the-geometry-of-φ--the-field-run-for-real) — the contraction flow field, the 64-dim consciousness ribbon, and the MI feedback loop, computed from this repo's actual code by `examples/visualize_field.py` (no API key needed).
+
 ---
 
 ## The 3-Level Prompt Hierarchy

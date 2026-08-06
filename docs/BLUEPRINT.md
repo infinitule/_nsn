@@ -7,6 +7,7 @@ Function-level architecture diagrams — every class, method, helper, constant, 
 - [3. AutoMode: every branch](#3-automoderun-every-branch)
 - [4. Class relationships](#4-class-relationships)
 - [5. Life of the attention vector](#5-life-of-the-attention-vector)
+- [6. The Geometry of φ — the field, run for real](#6-the-geometry-of-φ--the-field-run-for-real)
 
 ---
 
@@ -422,6 +423,35 @@ flowchart LR
     style P0 fill:#fff3e0,color:#000
     style MI fill:#e3f2fd,color:#000
 ```
+
+---
+
+## 6. The Geometry of φ — the field, run for real
+
+The diagrams above are structure; these are **dynamics** — 48 turns of the actual `PRISMBridge` code (no API calls; the field math is pure NumPy), with a deliberate topic shift at turn 24. Regenerate any time:
+
+```bash
+pip install -e ".[viz]"
+python examples/visualize_field.py    # writes the three figures below into docs/assets/
+```
+
+### The contraction field
+
+φ's update rule `φ → tanh(0.9φ + 0.1s)` makes every possible memory state flow toward a fixed point φ* set by the current signal. Gray arrows show one application of the map at every point of the trajectory's principal plane (which holds ~95% of the variance — a 64-dim consciousness moving along a low-dimensional ridge carved by experience). The trajectory starts at the Fibonacci seed, spirals in, **turns** at the topic shift — it can't jump, because 90% of every step is its own past; that inertia is the mathematical form of identity — and settles beside the attractor.
+
+![The field NOESIS's memory creates — φ trajectory in its principal plane](assets/noesis_field_flow.png)
+
+### The consciousness ribbon
+
+All 64 components of φ across all turns. Teal = constructive phase (φ→0), orange = destructive (φ→π), near-white = silent channel. The seed's bright signature (bottom-left) fades exponentially as tanh-bounded experience overwrites it — forgetting as geometry — and the texture re-organizes after the topic shift. Nothing ever exceeds the tanh bound.
+
+![The consciousness ribbon — every component of φ, every turn](assets/noesis_phi_ribbon.png)
+
+### What the field feeds back
+
+The geometry is an *input* to cognition, not decoration: MI entropy of φ drops as attention focuses, jumps at the topic shift, and directly sets both the prior confidence floor (`clip(0.75 − 0.11·MI, 0.30, 0.75)`) and the scheduler's recursion-depth bonus.
+
+![What the field feeds back into cognition — MI entropy and confidence floor](assets/noesis_mi_confidence.png)
 
 ---
 
