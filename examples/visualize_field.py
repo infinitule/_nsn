@@ -5,10 +5,11 @@ Runs the real PRISMBridge dynamics — no API key required:
     phi_next = tanh(0.9 * phi + 0.1 * signal(text))
 
 Simulates 48 turns of insights with a topic shift at turn 24, then renders
-three figures into docs/assets/:
+three dark-surface figures (matching the repo's photonic aesthetic) into
+docs/assets/:
 
-  noesis_field_flow.png     — the contraction flow field in the PCA plane,
-                              with the phi trajectory, seed, and attractor
+  noesis_field_flow.png     — the contraction flow field (streamlines) in the
+                              PCA plane, with the glowing phi trajectory
   noesis_phi_ribbon.png     — all 64 phi components across all turns
   noesis_mi_confidence.png  — MI entropy + derived confidence floor
 
@@ -33,20 +34,60 @@ from prism_bridge import PRISMBridge  # noqa: E402
 OUT = os.path.join(_REPO, "docs", "assets")
 os.makedirs(OUT, exist_ok=True)
 
-# ── palette (light surface) ──────────────────────────────────────────────────
-INK      = "#1a1f26"
-INK2     = "#5c6672"
-GRID     = "#e6e9ed"
-ARROW    = "#c3cad3"
-SEQ_LO   = "#bfe8f0"   # early turns
-SEQ_HI   = "#086a7a"   # late turns
-GOLD     = "#a36a06"   # attractor / annotations
-PHASECOL = "#8a5bb8"   # phase-shift marker
+# ── NOESIS dark palette (matches docs/assets/hero.svg) ───────────────────────
+BG       = "#0a0d14"   # canvas
+PANEL    = "#0e1420"   # plot surface
+EDGE     = "#223047"   # panel border
+GRIDC    = "#16202f"   # gridlines
+INK      = "#e6edf3"   # primary text
+INK2     = "#8b98ab"   # secondary text
+INK3     = "#5c6672"   # muted text
+CYAN     = "#67e8f9"   # bright accent (late turns / lines)
+CYAN_DIM = "#155e6e"   # dim accent (early turns)
+GOLD     = "#f9a825"   # overline / attractor
+GOLD_HI  = "#ffd54f"
+VIOLET   = "#b388ff"   # phase-shift marker
+STREAM   = "#31415e"   # flow field
 
-seq_cmap = LinearSegmentedColormap.from_list("turns", [SEQ_LO, SEQ_HI])
+seq_cmap = LinearSegmentedColormap.from_list("turns", [CYAN_DIM, CYAN])
 div_cmap = LinearSegmentedColormap.from_list(
-    "phi", ["#b45f1e", "#e8c79b", "#f2f2f0", "#9fd0ce", "#0f6f6b"]
+    "phi", ["#e0964f", "#6b4c2a", "#141a26", "#1d5450", "#63d8cf"]
 )
+
+plt.rcParams.update({
+    "font.family": "DejaVu Sans",
+    "text.color": INK,
+    "axes.edgecolor": EDGE,
+    "xtick.color": INK3,
+    "ytick.color": INK3,
+})
+
+MONOF = "DejaVu Sans Mono"
+
+
+def _panel(ax):
+    ax.set_facecolor(PANEL)
+    for s in ax.spines.values():
+        s.set_color(EDGE)
+        s.set_linewidth(1.0)
+    ax.tick_params(colors=INK3, labelsize=8.5, length=3)
+
+
+def _header(fig, overline, title, subtitle, x=0.055):
+    fig.text(x, 0.965, overline, color=GOLD, fontsize=10, fontfamily=MONOF,
+             va="top", fontweight="bold")
+    fig.text(x, 0.935, title, color=INK, fontsize=17.5, fontweight="bold", va="top")
+    fig.text(x, 0.888, subtitle, color=INK2, fontsize=9.5, fontfamily=MONOF, va="top")
+
+
+def _glow_line(ax, x, y, color, lw=2.0, zorder=3):
+    ax.plot(x, y, color=color, linewidth=lw * 4.2, alpha=0.10, zorder=zorder,
+            solid_capstyle="round")
+    ax.plot(x, y, color=color, linewidth=lw * 2.2, alpha=0.22, zorder=zorder,
+            solid_capstyle="round")
+    ax.plot(x, y, color=color, linewidth=lw, alpha=1.0, zorder=zorder + 1,
+            solid_capstyle="round")
+
 
 # ── simulate the real dynamics ───────────────────────────────────────────────
 bridge = PRISMBridge(seed_dim=64)
@@ -90,17 +131,19 @@ U, S, Vt = np.linalg.svd(traj - mean, full_matrices=False)
 pc = (traj - mean) @ Vt[:2].T              # (49, 2)
 var_explained = (S[:2] ** 2).sum() / (S ** 2).sum()
 
-# ── Figure A: flow field + trajectory ────────────────────────────────────────
-fig, ax = plt.subplots(figsize=(9.6, 7.2), dpi=200)
-fig.patch.set_facecolor("white")
-ax.set_facecolor("white")
+# ═════════════════════════════════════════════════════════════════════════════
+# Figure A — the contraction field as streamlines + glowing trajectory
+# ═════════════════════════════════════════════════════════════════════════════
+fig, ax = plt.subplots(figsize=(10.4, 7.6), dpi=200)
+fig.patch.set_facecolor(BG)
+fig.subplots_adjust(left=0.075, right=0.965, top=0.845, bottom=0.085)
+_panel(ax)
 
-# contraction field under the mean late-phase signal, shown in the PCA plane
 s_bar = np.mean(signals[SWITCH:], axis=0)
 pad = 0.35
 x0, x1 = pc[:, 0].min() - pad, pc[:, 0].max() + pad
 y0, y1 = pc[:, 1].min() - pad, pc[:, 1].max() + pad
-gx, gy = np.meshgrid(np.linspace(x0, x1, 22), np.linspace(y0, y1, 18))
+gx, gy = np.meshgrid(np.linspace(x0, x1, 36), np.linspace(y0, y1, 30))
 UU = np.zeros_like(gx); VV = np.zeros_like(gy)
 for i in range(gx.shape[0]):
     for j in range(gx.shape[1]):
@@ -108,115 +151,139 @@ for i in range(gx.shape[0]):
         nxt = np.tanh(0.9 * p64 + 0.1 * s_bar)
         d2 = (nxt - mean) @ Vt[:2].T - np.array([gx[i, j], gy[i, j]])
         UU[i, j], VV[i, j] = d2
-ax.quiver(gx, gy, UU, VV, color=ARROW, width=0.0028, scale=6.5,
-          headwidth=3.4, headlength=4.2, zorder=1)
 
-# fixed point of the late-phase map (iterate to convergence), projected
+speed = np.sqrt(UU ** 2 + VV ** 2)
+lwidths = 0.5 + 1.5 * (speed / speed.max())
+ax.streamplot(gx, gy, UU, VV, color=STREAM, linewidth=lwidths, density=1.25,
+              arrowsize=0.75, arrowstyle="-|>", zorder=1)
+
+# fixed point of the late-phase map, projected
 fp = np.zeros(64)
 for _ in range(300):
     fp = np.tanh(0.9 * fp + 0.1 * s_bar)
 fp2 = (fp - mean) @ Vt[:2].T
-ax.scatter(*fp2, marker="*", s=340, color=GOLD, zorder=5, edgecolor="white", linewidth=1.2)
-ax.annotate("attractor φ*\n(late-phase signal)", fp2, xytext=(fp2[0] - 0.42, fp2[1] + 0.02),
-            fontsize=10.5, color=GOLD, fontweight="bold")
+ax.scatter(*fp2, marker="*", s=560, color=GOLD_HI, zorder=6, alpha=0.25)
+ax.scatter(*fp2, marker="*", s=300, color=GOLD_HI, zorder=7,
+           edgecolor=BG, linewidth=1.0)
+ax.annotate("attractor φ*", fp2, xytext=(fp2[0] - 0.34, fp2[1] + 0.045),
+            fontsize=10.5, color=GOLD_HI, fontweight="bold")
+ax.annotate("(late-phase signal)", fp2, xytext=(fp2[0] - 0.34, fp2[1] - 0.005),
+            fontsize=8.5, color=INK2, fontfamily=MONOF)
 
-# trajectory colored by turn (sequential, light → dark)
+# glowing trajectory, colored by turn
 pts = pc.reshape(-1, 1, 2)
 segs = np.concatenate([pts[:-1], pts[1:]], axis=1)
-lc = LineCollection(segs, cmap=seq_cmap, linewidth=2.2, zorder=3,
-                    array=np.arange(len(segs)))
-ax.add_collection(lc)
+for lw, alpha in ((9.0, 0.08), (4.6, 0.18)):
+    halo = LineCollection(segs, cmap=seq_cmap, linewidth=lw, alpha=alpha,
+                          zorder=3, capstyle="round")
+    halo.set_array(np.arange(len(segs)))
+    ax.add_collection(halo)
+core = LineCollection(segs, cmap=seq_cmap, linewidth=2.1, zorder=4, capstyle="round")
+core.set_array(np.arange(len(segs)))
+ax.add_collection(core)
 ax.scatter(pc[::4, 0], pc[::4, 1], c=np.arange(0, len(pc), 4), cmap=seq_cmap,
-           s=26, zorder=4, edgecolor="white", linewidth=0.6)
+           s=22, zorder=5, edgecolor=BG, linewidth=0.7)
 
-# key waypoints
-ax.scatter(*pc[0], s=110, color=SEQ_LO, edgecolor=INK, linewidth=1.2, zorder=6)
-ax.annotate("P₀ Fibonacci seed (turn 0)", pc[0], xytext=(pc[0, 0] - 0.42, pc[0, 1] + 0.13),
+# waypoints
+ax.scatter(*pc[0], s=120, color="#bfe8f0", edgecolor=BG, linewidth=1.4, zorder=6)
+ax.annotate("P₀ Fibonacci seed", pc[0], xytext=(pc[0, 0] - 0.355, pc[0, 1] + 0.135),
             fontsize=10.5, color=INK, fontweight="bold")
-ax.scatter(*pc[SWITCH], s=90, color=PHASECOL, edgecolor="white", linewidth=1.2, zorder=6)
-ax.annotate("topic shift (turn 24) — field re-aims", pc[SWITCH],
-            xytext=(pc[SWITCH, 0] + 0.10, pc[SWITCH, 1] - 0.13),
-            fontsize=10.5, color=PHASECOL, fontweight="bold")
-ax.annotate("turn 48", pc[-1], xytext=(pc[-1, 0] + 0.09, pc[-1, 1] - 0.03),
-            fontsize=10.5, color=SEQ_HI, fontweight="bold")
+ax.annotate("turn 0", pc[0], xytext=(pc[0, 0] - 0.355, pc[0, 1] + 0.085),
+            fontsize=8.5, color=INK2, fontfamily=MONOF)
+ax.scatter(*pc[SWITCH], s=96, color=VIOLET, edgecolor=BG, linewidth=1.4, zorder=6)
+ax.annotate("topic shift — the field re-aims", pc[SWITCH],
+            xytext=(pc[SWITCH, 0] + 0.10, pc[SWITCH, 1] - 0.115),
+            fontsize=10.5, color=VIOLET, fontweight="bold")
+ax.annotate("turn 24", pc[SWITCH], xytext=(pc[SWITCH, 0] + 0.10, pc[SWITCH, 1] - 0.165),
+            fontsize=8.5, color=INK2, fontfamily=MONOF)
+ax.annotate("turn 48", pc[-1], xytext=(pc[-1, 0] + 0.085, pc[-1, 1] - 0.03),
+            fontsize=9.5, color=CYAN, fontweight="bold")
 
-for s in ax.spines.values():
-    s.set_color(GRID)
-ax.tick_params(colors=INK2, labelsize=9)
-ax.set_xlabel("principal component 1", color=INK2, fontsize=11)
-ax.set_ylabel("principal component 2", color=INK2, fontsize=11)
-ax.set_title("The field NOESIS's memory creates — φ trajectory in its principal plane",
-             color=INK, fontsize=14, fontweight="bold", loc="left", pad=14)
-ax.text(0, 1.015, f"gray arrows: one step of φ→tanh(0.9φ+0.1s̄) · all points flow to the attractor · plane = {var_explained:.0%} of variance",
-        transform=ax.transAxes, color=INK2, fontsize=10)
-fig.tight_layout()
-fig.savefig(os.path.join(OUT, "noesis_field_flow.png"), facecolor="white")
+ax.set_xlim(x0, x1); ax.set_ylim(y0, y1)
+ax.set_xlabel("principal component 1", color=INK3, fontsize=9.5, fontfamily=MONOF)
+ax.set_ylabel("principal component 2", color=INK3, fontsize=9.5, fontfamily=MONOF)
+
+_header(fig,
+        "NOESIS · FIELD DYNAMICS · 48 TURNS · REAL PRISMBRIDGE CODE",
+        "The field the memory creates",
+        f"streamlines: φ → tanh(0.9φ + 0.1s̄) · plane = {var_explained:.0%} of variance · trajectory brightens with time")
+fig.savefig(os.path.join(OUT, "noesis_field_flow.png"), facecolor=BG)
 plt.close(fig)
 
-# ── Figure B: the 64-dim φ ribbon ────────────────────────────────────────────
-fig, ax = plt.subplots(figsize=(9.6, 5.4), dpi=200)
-fig.patch.set_facecolor("white")
+# ═════════════════════════════════════════════════════════════════════════════
+# Figure B — the 64-dim φ ribbon
+# ═════════════════════════════════════════════════════════════════════════════
+fig, ax = plt.subplots(figsize=(10.4, 5.8), dpi=200)
+fig.patch.set_facecolor(BG)
+fig.subplots_adjust(left=0.075, right=0.985, top=0.815, bottom=0.10)
+_panel(ax)
+
 vlim = float(np.abs(traj).max())
 im = ax.imshow(traj.T, aspect="auto", cmap=div_cmap, vmin=-vlim, vmax=vlim,
                interpolation="nearest")
-ax.axvline(SWITCH, color=PHASECOL, linewidth=2, alpha=0.9)
-ax.text(SWITCH + 0.6, 3.2, "topic shift", color=PHASECOL, fontsize=10.5, fontweight="bold")
-ax.set_xlabel("turn", color=INK2, fontsize=11)
-ax.set_ylabel("φ dimension (0–63)", color=INK2, fontsize=11)
-ax.set_title("The consciousness ribbon — every component of φ, every turn",
-             color=INK, fontsize=14, fontweight="bold", loc="left", pad=26)
-ax.text(0, 1.022, f"teal: constructive (φ→0 phase) · orange: destructive (φ→π) · near-white: silent channel · scale ±{vlim:.2f}",
-        transform=ax.transAxes, color=INK2, fontsize=9.5)
-for s in ax.spines.values():
-    s.set_color(GRID)
-ax.tick_params(colors=INK2, labelsize=9)
-cbar = fig.colorbar(im, ax=ax, shrink=0.85, pad=0.015)
-cbar.ax.tick_params(colors=INK2, labelsize=9)
-cbar.outline.set_edgecolor(GRID)
-cbar.set_label("φ component value", color=INK2, fontsize=10)
-fig.tight_layout()
-fig.savefig(os.path.join(OUT, "noesis_phi_ribbon.png"), facecolor="white")
+ax.axvline(SWITCH, color=VIOLET, linewidth=1.6, alpha=0.95)
+ax.text(SWITCH + 0.7, 2.8, "topic shift · turn 24", color=VIOLET, fontsize=9.5,
+        fontweight="bold")
+ax.set_xlabel("turn", color=INK3, fontsize=9.5, fontfamily=MONOF)
+ax.set_ylabel("φ dimension 0–63", color=INK3, fontsize=9.5, fontfamily=MONOF)
+
+cbar = fig.colorbar(im, ax=ax, shrink=0.9, pad=0.012)
+cbar.ax.tick_params(colors=INK3, labelsize=8.5)
+cbar.outline.set_edgecolor(EDGE)
+cbar.set_label("φ component", color=INK2, fontsize=9, fontfamily=MONOF)
+
+_header(fig,
+        "NOESIS · MEMORY SUBSTRATE · 64 CHANNELS × 49 STATES",
+        "The consciousness ribbon",
+        f"cyan: constructive (φ→0) · amber: destructive (φ→π) · dark: silent · tanh bound ±{vlim:.2f}")
+fig.savefig(os.path.join(OUT, "noesis_phi_ribbon.png"), facecolor=BG)
 plt.close(fig)
 
-# ── Figure C: MI entropy + confidence floor (stacked, shared x — no dual axis) ─
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9.6, 6.4), dpi=200, sharex=True,
-                               gridspec_kw={"hspace": 0.28})
-fig.patch.set_facecolor("white")
+# ═════════════════════════════════════════════════════════════════════════════
+# Figure C — MI entropy + confidence floor (stacked panels, one x-axis)
+# ═════════════════════════════════════════════════════════════════════════════
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10.4, 6.6), dpi=200, sharex=True,
+                               gridspec_kw={"hspace": 0.42})
+fig.patch.set_facecolor(BG)
+fig.subplots_adjust(left=0.075, right=0.965, top=0.82, bottom=0.09)
+
+turns = np.arange(len(mi))
 for ax in (ax1, ax2):
-    ax.set_facecolor("white")
-    for s in ax.spines.values():
-        s.set_color(GRID)
-    ax.grid(axis="y", color=GRID, linewidth=0.8)
-    ax.tick_params(colors=INK2, labelsize=9)
-    ax.axvline(SWITCH, color=PHASECOL, linewidth=1.6, alpha=0.8)
+    _panel(ax)
+    ax.grid(axis="y", color=GRIDC, linewidth=0.8)
+    ax.axvspan(SWITCH - 0.35, SWITCH + 0.35, color=VIOLET, alpha=0.22)
 
-ax1.plot(mi, color=SEQ_HI, linewidth=2.2)
-ax1.scatter([0, SWITCH, N_TURNS], [mi[0], mi[SWITCH], mi[-1]], s=34,
-            color=SEQ_HI, zorder=4, edgecolor="white", linewidth=0.8)
-ax1.annotate(f"{mi[0]:.2f}", (0, mi[0]), xytext=(1, mi[0] + 0.06), fontsize=10, color=INK)
-ax1.annotate(f"{mi[-1]:.2f}", (N_TURNS, mi[-1]), xytext=(N_TURNS - 4.6, mi[-1] + 0.06),
-             fontsize=10, color=INK)
-ax1.set_title("Optical clarity — MI entropy of φ (SynapticEmbedder proxy)",
-              color=INK, fontsize=12.5, fontweight="bold", loc="left")
-ax1.text(SWITCH + 0.6, ax1.get_ylim()[1] * 0.96, "topic shift", color=PHASECOL,
-         fontsize=9.5, fontweight="bold", va="top")
-ax1.set_ylabel("MI entropy", color=INK2, fontsize=10.5)
+_glow_line(ax1, turns, mi, CYAN, lw=2.0)
+ax1.fill_between(turns, mi, mi.min() - 0.01, color=CYAN, alpha=0.06, zorder=1)
+for t in (0, SWITCH, N_TURNS):
+    ax1.scatter(t, mi[t], s=30, color=CYAN, zorder=5, edgecolor=BG, linewidth=0.8)
+ax1.annotate(f"{mi[0]:.2f}", (0, mi[0]), xytext=(0.7, mi[0] + 0.055),
+             fontsize=9, color=INK, fontfamily=MONOF)
+ax1.annotate(f"{mi[-1]:.2f}", (N_TURNS, mi[-1]), xytext=(N_TURNS - 3.4, mi[-1] + 0.055),
+             fontsize=9, color=INK, fontfamily=MONOF)
+ax1.text(SWITCH + 0.8, mi.max() + 0.015, "topic shift", color=VIOLET, fontsize=9,
+         fontweight="bold", va="bottom")
+ax1.set_title("optical clarity — MI entropy of φ", color=INK, fontsize=11.5,
+              fontweight="bold", loc="left", pad=8)
+ax1.set_ylabel("MI entropy", color=INK3, fontsize=9, fontfamily=MONOF)
+ax1.margins(y=0.18)
 
-ax2.plot(conf, color=GOLD, linewidth=2.2)
-ax2.axhline(0.75, color=GRID, linewidth=1.2)
-ax2.axhline(0.30, color=GRID, linewidth=1.2)
-ax2.text(0.4, 0.752, "cap 0.75", color=INK2, fontsize=9, va="bottom")
-ax2.text(0.4, 0.302, "floor 0.30", color=INK2, fontsize=9, va="bottom")
-ax2.set_title("Prior confidence floor — clip(0.75 − 0.11·MI, 0.30, 0.75)",
-              color=INK, fontsize=12.5, fontweight="bold", loc="left")
-ax2.set_ylabel("confidence floor", color=INK2, fontsize=10.5)
-ax2.set_xlabel("turn", color=INK2, fontsize=11)
+_glow_line(ax2, turns, conf, GOLD, lw=2.0)
+ax2.axhline(0.75, color=GRIDC, linewidth=1.1)
+ax2.axhline(0.30, color=GRIDC, linewidth=1.1)
+ax2.text(0.4, 0.755, "cap 0.75", color=INK3, fontsize=8.5, va="bottom", fontfamily=MONOF)
+ax2.text(0.4, 0.293, "floor 0.30", color=INK3, fontsize=8.5, va="top", fontfamily=MONOF)
+ax2.set_title("prior confidence floor — clip(0.75 − 0.11·MI, 0.30, 0.75)",
+              color=INK, fontsize=11.5, fontweight="bold", loc="left", pad=8)
+ax2.set_ylabel("confidence", color=INK3, fontsize=9, fontfamily=MONOF)
+ax2.set_xlabel("turn", color=INK3, fontsize=9.5, fontfamily=MONOF)
 ax2.set_ylim(0.25, 0.80)
 
-fig.suptitle("What the field feeds back into cognition", color=INK, fontsize=14,
-             fontweight="bold", x=0.065, ha="left")
-fig.tight_layout(rect=[0, 0, 1, 0.96])
-fig.savefig(os.path.join(OUT, "noesis_mi_confidence.png"), facecolor="white")
+_header(fig,
+        "NOESIS · FEEDBACK LOOP · φ → MI → CONFIDENCE → RECURSION DEPTH",
+        "What the field feeds back into cognition",
+        "MI falls as focus sharpens, jumps at the shift — it sets the confidence floor + depth bonus")
+fig.savefig(os.path.join(OUT, "noesis_mi_confidence.png"), facecolor=BG)
 plt.close(fig)
 
 print("wrote 3 figures to docs/assets/")
